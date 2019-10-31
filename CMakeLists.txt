@@ -4,7 +4,7 @@ CMAKE_MINIMUM_REQUIRED (VERSION 2.8.3)
 SET(CMAKE_BUILD_TYPE Release) # Release, RelWithDebInfo
 SET(CMAKE_VERBOSE_MAKEFILE OFF)
 SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/CMakeModules/")
-SET(USE_ROS TRUE) # Set False if you want to build this package without Catkin
+SET(USE_ROS False) # Set False if you want to build this package without Catkin
 
 # Set build flags. Set IS_ARM on odroid board as environment variable
 SET(CMAKE_CXX_FLAGS "-Wall -D_LINUX -D_REENTRANT -march=native -Wno-unused-variable -Wno-unused-but-set-variable -Wno-unknown-pragmas")
@@ -23,14 +23,17 @@ SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS} -O3 -fsee -fomit-frame-pointer -
 # Add plain cmake packages 
 FIND_PACKAGE(OpenCV REQUIRED)
 FIND_PACKAGE(Eigen REQUIRED)
-FIND_PACKAGE(Sophus REQUIRED)
+# FIND_PACKAGE(Sophus REQUIRED)
+
+message(STATUS "Sophus path: " ${SophusPath})
 
 # Include dirs
 INCLUDE_DIRECTORIES(
   include
   ${Eigen_INCLUDE_DIRS}
   ${OpenCV_INCLUDE_DIRS}
-  ${Sophus_INCLUDE_DIRS}
+  # ${Sophus_INCLUDE_DIRS}
+  ${SophusPath}
 )
 
 IF(USE_ROS)
